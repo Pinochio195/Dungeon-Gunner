@@ -26,7 +26,7 @@ public class RoomNodeSO : ScriptableObject
     {
         this.rect = rect;
         this.id = Guid.NewGuid().ToString();
-        this.name = "Roomllode";
+        this.name = "RoomNode";
         this.roomNodeGraph = nodeGraph;
         this.roomNodeType = roomNodeType;
         // Load room node type list
@@ -35,7 +35,7 @@ public class RoomNodeSO : ScriptableObject
 
     /// <summary>
     /// Draw node with the nodestyle
-    // </summary>
+    /// </summary>
     public void Draw(GUIStyle nodeStyle)
     {
         // Draw Node Box Using Begin Area
@@ -43,11 +43,12 @@ public class RoomNodeSO : ScriptableObject
         // Start Region To Detect Popup Selection Changes
         EditorGUI.BeginChangeCheck();
         //Display a popup using the RoomodeType name values that can be selected from(default to the currently set roomÑodeType)
-        int selected = roomNodeTypeList.list.FindIndex(X => X == roomNodeType);
+        int selected = roomNodeTypeList.list.FindIndex(x => x == roomNodeType);
         int selection = EditorGUILayout.Popup("", selected, GetRoomNodeTypesToDisplay());
         roomNodeType = roomNodeTypeList.list[selection];
         if (EditorGUI.EndChangeCheck())
             EditorUtility.SetDirty(this);
+        
         GUILayout.EndArea();
     }
 
@@ -60,7 +61,9 @@ public class RoomNodeSO : ScriptableObject
         for (int i = 0; i < roomNodeTypeList.list.Count; i++)
         {
             if (roomNodeTypeList.list[i].displayInNodeGraphEditor)
+            {
                 roomArray[i] = roomNodeTypeList.list[i].roomNodeTypeName;
+            }
         }
 
         return roomArray;

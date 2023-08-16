@@ -239,7 +239,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &988875691651734119
+--- !u!1001 &663527008
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -250,10 +250,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameResources
       objectReference: {fileID: 0}
-    - target: {fileID: 5966505946595155454, guid: 1191993364f736742bc7e4c2bf1de4a1, type: 3}
-      propertyPath: roomNodeTypeList
-      value: 
-      objectReference: {fileID: 11400000, guid: c2614e0ea4e670c40a56ac959a94e2df, type: 2}
     - target: {fileID: 8762849355923845944, guid: 1191993364f736742bc7e4c2bf1de4a1, type: 3}
       propertyPath: m_RootOrder
       value: 1

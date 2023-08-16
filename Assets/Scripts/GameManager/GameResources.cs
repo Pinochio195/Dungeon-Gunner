@@ -5,7 +5,6 @@ using UnityEngine;
 public class GameResources : MonoBehaviour
 {
     private static GameResources instance;
-
     public static GameResources Instance
     {
         get
@@ -31,5 +30,5 @@ public class GameResources : MonoBehaviour
 
     #endregion
     
-    public RoomNodeTypeListSO roomNodeTypeList;
+    [ChangeColorLabel(.2f,.2f,1)]public RoomNodeTypeListSO roomNodeTypeList;
 }
