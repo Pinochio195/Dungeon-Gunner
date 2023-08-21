@@ -6,9 +6,8 @@ using UnityEngine;
 public class RoomNodeGraphEditor : EditorWindow
 {
     private GUIStyle roomNodeStyle;
-
     public static RoomNodeGraphSO currentRoomNodeGraph;
-
+    private RoomNodeSO currentRoomNode = null;
     private RoomNodeTypeListSO roomNodeTypeList;
 
     //giá trị của node
@@ -73,9 +72,36 @@ public class RoomNodeGraphEditor : EditorWindow
         }
     }
 
-    private void ProgressEvents(Event curretnEvent)
+    private void ProgressEvents(Event currentEvent)
     {
-        ProgressRoomNodeGraphEvents(curretnEvent);
+        if (currentRoomNode == null || currentRoomNode.isLeftClickDragging == false)
+        {
+        currentRoomNode = IsMouseOverRoomNode(currentEvent);
+            
+        }
+
+        if (currentRoomNode == null)
+        {
+        ProgressRoomNodeGraphEvents(currentEvent);
+            
+        }
+        else
+        {
+            currentRoomNode.ProcessEvents(currentEvent);
+        }
+    }
+
+    private RoomNodeSO IsMouseOverRoomNode(Event currentEvent)
+    {
+        for (int i = currentRoomNodeGraph.roomNodeList.Count - 1; i >= 0; i--)
+        {
+            if (currentRoomNodeGraph.roomNodeList[i].rect.Contains(currentEvent.mousePosition))
+            {
+                return currentRoomNodeGraph.roomNodeList[i];
+            }
+        }
+
+        return null;
     }
 
     private void ProgressRoomNodeGraphEvents(Event currentEvent)
