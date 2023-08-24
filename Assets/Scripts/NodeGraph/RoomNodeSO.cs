@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class RoomNodeSO : ScriptableObject
 {
-    [HideInInspector] public string id;
-    [HideInInspector] public List<string> parentRoomNodeIDList = new List<string>();
-    [HideInInspector] public List<string> childRoomNodeIDList = new List<string>();
+    [HideInInspector]public string id;
+    [HideInInspector]public List<string> parentRoomNodeIDList = new List<string>();
+    [HideInInspector]public List<string> childRoomNodeIDList = new List<string>();
     [HideInInspector] public RoomNodeGraphSO roomNodeGraph;
     public RoomNodeTypeSO roomNodeType;
     [HideInInspector] public RoomNodeTypeListSO roomNodeTypeList;
@@ -44,10 +44,18 @@ public class RoomNodeSO : ScriptableObject
         GUILayout.BeginArea(rect, nodeStyle);
         // Start Region To Detect Popup Selection Changes
         EditorGUI.BeginChangeCheck();
-        //Display a popup using the RoomodeType name values that can be selected from(default to the currently set roomÑodeType)
-        int selected = roomNodeTypeList.list.FindIndex(x => x == roomNodeType);
-        int selection = EditorGUILayout.Popup("", selected, GetRoomNodeTypesToDisplay());
-        roomNodeType = roomNodeTypeList.list[selection];
+        if (parentRoomNodeIDList.Count>0 || roomNodeType.isEntrance)
+        {
+            EditorGUILayout.LabelField(roomNodeType.roomNodeTypeName);
+        }
+        else
+        {
+            //Display a popup using the RoomodeType name values that can be selected from(default to the currently set roomÑodeType)
+            int selected = roomNodeTypeList.list.FindIndex(x => x == roomNodeType);
+            int selection = EditorGUILayout.Popup("", selected, GetRoomNodeTypesToDisplay());
+            roomNodeType = roomNodeTypeList.list[selection];
+            
+        }
         if (EditorGUI.EndChangeCheck())
             EditorUtility.SetDirty(this);
         
@@ -92,13 +100,24 @@ public class RoomNodeSO : ScriptableObject
 
     private void ProcessMouseDownEvent(Event currentEvent)
     {
+        //left click 
         if (currentEvent.button ==0)
         {
-            PrecessLeftClickDownEvent();
+            ProcessLeftClickDownEvent();
+        }
+        //right click
+        else if (currentEvent.button ==1 )
+        {
+            ProcessRightClickDownEvent(currentEvent);
         }
     }
 
-    private void PrecessLeftClickDownEvent()
+    private void ProcessRightClickDownEvent(Event currentEvent)
+    {
+        roomNodeGraph.SetNodeToDrawlConnectionLineFrom(this,currentEvent.mousePosition);
+    }
+
+    private void ProcessLeftClickDownEvent()
     {
         Selection.activeObject = this;
         if (isSelected)
@@ -146,6 +165,17 @@ public class RoomNodeSO : ScriptableObject
     {
         rect.position += delta;
         EditorUtility.SetDirty(this);
+    }
+
+    public bool AddChildRoomNodeIDToRoomNode(string childID)
+    {
+        childRoomNodeIDList.Add(childID);
+        return true;
+    }
+    public bool AddParentRoomNodeIDToRoomNode(string parentID)
+    {
+        parentRoomNodeIDList.Add(parentID);
+        return true;
     }
 #endif
 
