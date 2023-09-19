@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,13 +21,13 @@ public class RoomNodeTypeListSO : ScriptableObject
 
     #region Validation
 
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     private void OnValidate()
     {
         HelperUtilities.ValidateCheckEnumerableValues(this, nameof(list), list);
     }
 
-    #endif
+#endif
 
     #endregion
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameResources : MonoBehaviour
@@ -13,7 +11,6 @@ public class GameResources : MonoBehaviour
             {
                 instance = Resources.Load<GameResources>("GameResources");
             }
-
             return instance;
         }
     }
@@ -29,6 +26,6 @@ public class GameResources : MonoBehaviour
     [Tooltip("Populate with the dungeon RoomNodeTypeListSO")]
 
     #endregion
-    
-    [ChangeColorLabel(.2f,.2f,1)]public RoomNodeTypeListSO roomNodeTypeList;
+
+    [ChangeColorLabel(.2f, .2f, 1)] public RoomNodeTypeListSO roomNodeTypeList;
 }
